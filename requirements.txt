@@ -1,0 +1,46 @@
+# Core AI
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langgraph
+
+# RAG / Vector Database
+chromadb
+sentence-transformers
+
+# ML / DL
+scikit-learn
+torch
+
+# LLM
+langchain-ollama
+langchain-huggingface
+
+# Web Search
+tavily-python
+
+# MCP
+mcp
+
+# Application
+streamlit
+fastapi
+uvicorn
+
+# Utilities
+python-dotenv
+pydantic  
+
+# Web search
+duckduckgo-search
+
+# PDF processing
+pypdf
+
+# Data analysis
+pandas
+numpy
+
+# Evaluation
+ragas
