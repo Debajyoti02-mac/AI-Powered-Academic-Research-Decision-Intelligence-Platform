@@ -49,13 +49,15 @@ def tokenize(text: str):
 tokenized_chunks = [tokenize(c) for c in chunks]
 corpus_build = BM25Okapi(tokenized_chunks)
 
-
+from sentence_transformers import CrossEncoder 
 from langchain_groq import ChatGroq
 import os 
 from dotenv import  load_dotenv 
 load_dotenv()
 key = os.getenv("GROQ_API_KEY")
 chat_model = ChatGroq(model="openai/gpt-oss-120b")
+
+reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 # rewritten_query
 @mcp.tool()
@@ -82,6 +84,11 @@ def Retrival(query:str):
 
     merged = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
     top_docs = [doc for doc, _ in merged[:5]]
+
+    pairs = [(rewritten_query, doc) for doc in top_docs]
+    reranker_scores = reranker.predict(pairs)
+    reranked = [doc for _, doc in sorted(zip(scores, top_docs), reverse=True)]
+    top_docs = reranked
 
     context_text = "\n\n".join(top_docs) if top_docs else ""
     return {"context": context_text}
