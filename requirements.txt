@@ -50,3 +50,5 @@ rank_bm25
 
 # LLM 
 langchain_groq
+
+numexpr
